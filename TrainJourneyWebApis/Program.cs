@@ -1,13 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using RabbitMQ.Client;
 using TrainJourneyWebApis.Data;
+using TrainJourneyWebApis.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddDbContext<TrainJourneyContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServerDb")));
 
 builder.Services.AddSingleton<IConnectionFactory>(sp =>
 {
@@ -35,5 +36,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<JourneyHub>("/journeyhub");
 
 app.Run();
