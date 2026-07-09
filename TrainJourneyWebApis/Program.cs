@@ -2,10 +2,16 @@ using Microsoft.EntityFrameworkCore;
 using RabbitMQ.Client;
 using TrainJourneyWebApis.Data;
 using TrainJourneyWebApis.Hubs;
+using TrainJourneyWebApis.Services;
+using TrainJourneyWebApis.Workers;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+// Add this under your existing builder.Services statements:
+builder.Services.AddHttpClient<AiStoryService>();
+builder.Services.AddHostedService<TelemetryConsumerWorker>();
 
 builder.Services.AddDbContext<TrainJourneyContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServerDb")));
