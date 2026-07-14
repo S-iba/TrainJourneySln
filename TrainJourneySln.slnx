@@ -1,3 +1,6 @@
 <Solution>
+  <Project Path="TrainJourneyNode/TrainJourneyNode.nfproj" Type="11a8dd76-328b-46df-9f39-f559912d0360" Id="ccaed0ed-f73b-49ec-b1ed-2c1020effe52">
+    <Deploy />
+  </Project>
   <Project Path="TrainJourneyWebApis/TrainJourneyWebApis.csproj" />
 </Solution>

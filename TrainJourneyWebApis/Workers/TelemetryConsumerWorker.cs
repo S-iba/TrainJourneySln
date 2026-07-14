@@ -79,7 +79,7 @@ namespace TrainJourneyWebApis.Workers
             dbContext.GeneratedStories.Add(newStory);
             await dbContext.SaveChangesAsync();
 
-            PublishEnrichedStory(new EnrichedStoryMessage
+            await PublishEnrichedStory(new EnrichedStoryMessage
             {
                 StageId = closestStage.Id,
                 StoryTitle = storyText,
@@ -119,5 +119,12 @@ namespace TrainJourneyWebApis.Workers
 
             await base.StopAsync(stoppingToken);
         }
+
+        public async override void Dispose()
+        {
+            await _channel?.CloseAsync();
+            await _connection?.CloseAsync();
+            base.Dispose();
+        }                       
     }
 }
